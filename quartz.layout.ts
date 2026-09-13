@@ -30,6 +30,11 @@ export const defaultContentPageLayout: PageLayout = {
   left: [],
   right: [],
   afterBody: [
+    // タグがある記事だけ出る（TagList は tags が空なら null を返す）
+    Component.ConditionalRender({
+      component: Component.TagList(),
+      condition: (page) => page.fileData.slug !== "index",
+    }),
     Component.ConditionalRender({
       component: Component.RecentNotes({
         title: "Writing",
@@ -46,7 +51,8 @@ export const defaultContentPageLayout: PageLayout = {
 
 // components for pages that display lists of pages  (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
-  beforeBody: [Component.ArticleTitle()],
+  // タグページは「Tag:」＋タグ名の2段見出しにする
+  beforeBody: [Component.ListTitle()],
   left: [],
   right: [],
 }

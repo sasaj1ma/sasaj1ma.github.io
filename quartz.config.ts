@@ -30,15 +30,20 @@ const config: QuartzConfig = {
       },
       colors: {
         lightMode: {
+          // 背景。クリーム
           light: "#FFFCF0",
-          lightgray: "#E6E4D9",
-          gray: "#B7B5AC",
-          darkgray: "#6F6E69",
-          dark: "#100F0F",
-          secondary: "#205EA6",
-          tertiary: "#3AA99F",
-          highlight: "rgba(206, 205, 195, 0.15)",
-          textHighlight: "#D0A21588",
+          // 罫線。本文色の薄いティント
+          lightgray: "#1536FF2E",
+          // 日付・メタ。本文と同じ色
+          gray: "#1536FF",
+          // 本文
+          darkgray: "#1536FF",
+          // 見出し・リンク
+          dark: "#1536FF",
+          secondary: "#1536FF",
+          tertiary: "#1536FF",
+          highlight: "rgba(21, 54, 255, 0.08)",
+          textHighlight: "#1536FF33",
         },
         darkMode: {
           light: "#100F0F",

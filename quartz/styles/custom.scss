@@ -115,21 +115,33 @@ article h6 {
   }
 }
 
-// Minimal link styling
+// リンクの既定：下線なし、ホバーで opacity 50%。
 a {
   font-weight: normal !important;
   color: var(--dark) !important;
+  text-decoration: none !important;
+  transition: opacity 0.15s ease;
+
+  &:hover {
+    color: var(--dark) !important;
+    text-decoration: none !important;
+    opacity: 0.5;
+  }
+}
+
+// 本文中のリンクだけ下線を引く。ホバーは同じく opacity 50%。
+article a {
   text-decoration: underline !important;
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
 
   &:hover {
-    color: var(--dark) !important;
-    text-decoration-thickness: 1px !important;
+    text-decoration: underline !important;
   }
 }
 
-a.internal {
+// タグは下のピル用スタイルを使うので、この打ち消しからは外す。
+a.internal:not(.tag-link) {
   color: var(--dark) !important;
   background-color: transparent !important;
   padding: 0 !important;
@@ -137,11 +149,41 @@ a.internal {
   border: none !important;
 }
 
-// Simple header
+// 記事下部のタグ。角丸いっぱいのピル型。
+.tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 2.5rem 0 0 0 !important;
+  padding: 0 !important;
+}
+
+.tags > li {
+  margin: 0;
+}
+
+a.internal.tag-link {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--dark);
+  border-radius: 999px;
+  background-color: transparent !important;
+  text-decoration: none !important;
+
+  &:hover {
+    text-decoration: none !important;
+    opacity: 0.5;
+  }
+}
+
+// ヘッダー。罫線は引かない。
+// 罫線は一覧の行区切りだけに使う。
 .page-header {
   padding-bottom: 1.5rem !important;
   margin-bottom: 2rem !important;
-  border-bottom: 1px solid var(--lightgray);
 
   // Flex layout for header
   & .flex-component {
@@ -153,17 +195,54 @@ a.internal {
   }
 }
 
-// Minimal article title
+// 文字サイズと前後余白だけで見出しを作る。装飾は持たせない。
+//   h1 30px / h2 24px / h3 18px / 本文 16px
 h1.article-title {
-  font-size: 1.5rem !important;
+  font-size: 30px !important;
   font-weight: 600 !important;
-  margin-bottom: 0.5rem !important;
+  line-height: 1.35 !important;
   margin-top: 0 !important;
+  margin-bottom: 0.5rem !important;
 }
 
-// Clean content meta
+article h1 {
+  font-size: 30px !important;
+  line-height: 1.35 !important;
+  margin-top: 3rem !important;
+  margin-bottom: 1rem !important;
+}
+
+article h2 {
+  font-size: 24px !important;
+  line-height: 1.4 !important;
+  margin-top: 2.5rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+article h3 {
+  font-size: 18px !important;
+  line-height: 1.5 !important;
+  margin-top: 2rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+article h4,
+article h5,
+article h6 {
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+// 見出しが本文の直後に来たときだけ上の余白を詰める（連続見出し対策）
+article :is(h1, h2, h3, h4, h5, h6) + :is(h1, h2, h3, h4, h5, h6) {
+  margin-top: 1rem !important;
+}
+
+// 日付。一覧の日付と同じ 14px / 黒
 .content-meta {
-  font-size: 0.9rem !important;
+  font-size: 14px !important;
   color: var(--gray) !important;
   margin-bottom: 2rem !important;
 }
@@ -175,35 +254,55 @@ h1.article-title {
   border-top: 1px solid var(--lightgray);
 }
 
-// Clean footer
+// フッター。こちらも罫線は引かない。
 footer {
   margin-top: 3rem !important;
   padding-top: 2rem;
-  border-top: 1px solid var(--lightgray);
+
+  & .footer-credit {
+    font-size: 12px;
+    margin: 0;
+  }
 }
 
-// Page title styling
+// サイト名。見出しではなくホームへの導線なので本文と同じ 16px
 .page-title {
   margin: 0 !important;
-  font-size: 1.2rem !important;
+  font-size: 16px !important;
   font-weight: 600 !important;
 
   & h1 {
     margin: 0 !important;
-    font-size: 1.2rem !important;
+    font-size: 16px !important;
   }
 }
 
-// Writing list styling (stephango.com inspired)
+// Quartz は本文と後続ブロックの間に hr を入れる。
+// 一覧ページ（TOP・タグ・フォルダ）では一覧の行区切りと二重になるので出さない。
+// 記事ページの hr（本文とタグの間）は「記事の区切り」なので残す。
+body[data-slug="index"] .center > hr,
+.center:has(.page-listing) > hr {
+  display: none;
+}
+
+// TOP は本文が空なので、その分の余白も詰める。
+body[data-slug="index"] .recent-notes {
+  margin-top: 0;
+}
+
+// TOP の記事一覧。タイトル左・日付右で、行ごとに罫線を引く。
+// 出すのはタイトルと日付だけ。
 .recent-notes {
   margin-top: 3rem;
 
-  & h3 {
-    font-size: 1.2rem !important;
-    font-weight: 600 !important;
-    margin-bottom: 1rem !important;
+  // 一覧しかないページなのでラベルは出さない。
+  // 戻すときはこのブロックを消す（見出し文言は quartz.layout.ts の title）。
+  & > h3 {
+    display: none;
   }
 
+  // 上の罫線は引かない。ページヘッダーの罫線と二重になるため、
+  // 各行の border-bottom だけで区切る。
   & .recent-ul {
     list-style: none;
     padding: 0;
@@ -213,37 +312,146 @@ footer {
   & .recent-li {
     margin: 0;
     padding: 0;
+    border-bottom: 1px solid var(--lightgray);
   }
 
   & .section {
     display: flex;
     flex-direction: row;
     align-items: baseline;
-    gap: 1rem;
-    padding: 0.25rem 0;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 0.85rem 0;
     margin: 0;
   }
 
-  & .meta {
-    margin: 0 !important;
-    font-size: 0.9rem;
-    color: var(--gray);
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
+  // タイトルを左へ
   & .desc {
+    order: 1;
     flex: 1;
     margin: 0;
 
     & h3 {
       margin: 0 !important;
-      font-size: 1rem !important;
+      font-size: 16px !important;
       font-weight: normal !important;
     }
+  }
+
+  // 日付を右へ
+  & .meta {
+    order: 2;
+    margin: 0 !important;
+    font-size: 14px;
+    color: var(--gray);
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   & .tags {
     display: none;
   }
+}
+
+// タグページ／フォルダページの一覧。TOP と同じ行組みにする。
+// listPage.scss が `li.section-li > .section` を grid で組んでいるので、
+// それより高い詳細度で flex に置き換える。
+.list-title {
+  margin-bottom: 2rem;
+
+  & .list-title-eyebrow {
+    font-size: 13px;
+    margin: 0 0 0.15rem 0;
+    line-height: 1.2;
+  }
+
+  & h1.article-title {
+    margin: 0 !important;
+  }
+}
+
+.page-listing {
+  // 「4 items with this tag.」は出さない
+  & > p {
+    display: none;
+  }
+
+  & ul.section-ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+  }
+
+  & li.section-li {
+    margin: 0 0 0 0;
+    border-bottom: 1px solid var(--lightgray);
+
+    & > .section {
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 0.85rem 0;
+      margin: 0;
+    }
+
+    // タイトルを左へ
+    & > .section > .desc {
+      order: 1;
+      flex: 1;
+      margin: 0;
+
+      & h3 {
+        margin: 0 !important;
+        font-size: 16px !important;
+        font-weight: normal !important;
+      }
+    }
+
+    // 日付を右へ。listPage.scss の opacity: 0.6 を打ち消す。
+    & > .section > .meta {
+      order: 2;
+      margin: 0 !important;
+      opacity: 1;
+      font-size: 14px;
+      color: var(--gray);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    // 行内のタグは出さない
+    & > .section > .tags {
+      display: none;
+    }
+  }
+
+  & .desc a {
+    text-decoration: none !important;
+
+    &:hover {
+      text-decoration: underline !important;
+    }
+  }
+}
+
+// 一覧のリンクは下線を出さない。行の罫線が区切りになっている。
+.recent-notes .desc a {
+  text-decoration: none !important;
+
+  &:hover {
+    text-decoration: underline !important;
+  }
+}
+
+// recentNotes.scss が `.recent-notes > ul.recent-ul > li` という詳細度で
+// li の margin と .meta の opacity を指定しているので、同じ形で打ち消す。
+// opacity: 0.6 が残っていると、日付の色を黒にしても灰色に見える。
+.recent-notes > ul.recent-ul > li.recent-li {
+  margin: 0;
+}
+
+.recent-notes > ul.recent-ul > li .section > .meta {
+  margin: 0;
+  opacity: 1;
 }
