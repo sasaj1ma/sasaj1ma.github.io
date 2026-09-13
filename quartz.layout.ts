@@ -31,8 +31,8 @@ export const defaultContentPageLayout: PageLayout = {
     Component.ConditionalRender({
       component: Component.RecentNotes({
         title: "Writing",
-        limit: 10,
-        linkToMore: "writing" as any,
+        limit: Infinity,
+        linkToMore: false,
         showTags: false,
         filter: (f) => f.slug?.startsWith("writing/") && f.slug !== "writing/index",
       }),
