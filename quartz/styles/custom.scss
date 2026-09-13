@@ -69,6 +69,21 @@ article h6 {
   -webkit-text-stroke: 0.01em transparent;
 }
 
+// 狭い画面では日本語の「単語単位の折り返し」をやめる。
+// palt-typesetting の useWordBreak は word-break: keep-all を当てるので、
+// 行末に収まらない語が丸ごと次行へ送られ、1 語分の余白が残る。
+// 1 行が長いうちは気にならないが、短い画面では比率が効いてくる。
+//   実測（ヘルボーイ記事）:
+//     SP 375px  行末の余り 平均 19.1px / 最大 61px / 39 行中 16 行が 20px 超
+//     → 無効時   平均  8.2px / 最大 33px / 37 行中  1 行
+// 800px はこのファイルの .page の padding 切り替えと同じ境目。
+@media all and (max-width: 800px) {
+  .typesetting-word-break {
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+}
+
 // Ultra-minimal stephango.com inspired layout
 .page {
   max-width: 100% !important;
