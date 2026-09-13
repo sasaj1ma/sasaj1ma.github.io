@@ -37,8 +37,7 @@ export interface Theme {
 
 export type ThemeKey = keyof Colors
 
-const DEFAULT_SANS_SERIF =
-  'NHaasGroteskTXPro-55Rg, TazuganeGothicStdN-Book, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
+const DEFAULT_SANS_SERIF = `'Gen Interface JP', Helvetica, Arial, 'Yu Gothic Medium', YuGothic, 'Yu Gothic', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'`
 const DEFAULT_MONO = "ui-monospace, SFMono-Regular, SF Mono, Menlo, monospace"
 
 export function getFontSpecificationName(spec: FontSpecification): string {

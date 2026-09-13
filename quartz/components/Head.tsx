@@ -51,8 +51,34 @@ export default (() => {
           </>
         )}
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://webfont.fontplus.jp" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://webfont.fontplus.jp" />
+
+        {/*
+          Gen Interface JP (Inter + Noto Sans JP) — https://github.com/yamatoiizuka/gen-interface-jp
+          palt-typesetting と同じ作者による和欧混植書体。バージョンは固定する
+          （@latest だとデプロイしていないのに版面が変わりうるため）。
+          spa-preserve がないと SPA 遷移のたびに head から外されて再読み込みになる。
+        */}
+        <link
+          rel="preconnect"
+          href="https://cdn.jsdelivr.net"
+          crossOrigin="anonymous"
+          spa-preserve
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/gen-interface-jp@0.8.0/cdn/400.css"
+          spa-preserve
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/gen-interface-jp@0.8.0/cdn/600.css"
+          spa-preserve
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/gen-interface-jp@0.8.0/cdn/display-600.css"
+          spa-preserve
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <meta name="og:site_name" content={cfg.pageTitle}></meta>
@@ -100,7 +126,6 @@ export default (() => {
             return resource
           }
         })}
-        <script src="https://webfont.fontplus.jp/accessor/script/fontplus.js?xIjXNmzOwb4%3D&box=iCS2mBZa6QI%3D&delay=2&pm=1&aa=1&ab=1" spa-preserve></script>
       </head>
     )
   }

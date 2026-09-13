@@ -23,8 +23,9 @@ const config: QuartzConfig = {
       fontOrigin: "local",
       cdnCaching: true,
       typography: {
-        header: "'NHaasGroteskTXPro-55Rg', 'TazuganeGothicStdN-Book', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-        body: "'NHaasGroteskTXPro-55Rg', 'TazuganeGothicStdN-Book', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+        header:
+          "Helvetica, Arial, 'Yu Gothic Medium', YuGothic, 'Yu Gothic', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif",
+        body: "'Gen Interface JP', Helvetica, Arial, 'Yu Gothic Medium', YuGothic, 'Yu Gothic', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', sans-serif",
         code: "ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace",
       },
       colors: {

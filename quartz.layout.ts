@@ -5,6 +5,8 @@ import * as Component from "./quartz/components"
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [
+    // 何も描画しない。全ページに palt 組版を適用するために先頭に置く。
+    Component.Typesetting(),
     Component.PageTitle(),
   ],
   afterBody: [],
@@ -44,9 +46,7 @@ export const defaultContentPageLayout: PageLayout = {
 
 // components for pages that display lists of pages  (e.g. tags or folders)
 export const defaultListPageLayout: PageLayout = {
-  beforeBody: [
-    Component.ArticleTitle(),
-  ],
+  beforeBody: [Component.ArticleTitle()],
   left: [],
   right: [],
 }

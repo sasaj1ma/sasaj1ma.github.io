@@ -2,14 +2,40 @@
 
 // put your custom CSS here!
 
-// FONTPLUS font configuration
-// Webfonts are loaded synchronously via FONTPLUS script in Head.tsx
-// IMPORTANT: FONTPLUS requires synchronous loading (no async attribute) to ensure fonts load correctly
-// Fallback fonts (-apple-system, BlinkMacSystemFont, etc.) are used until webfonts load
+// 本文は Gen Interface JP、見出しは Gen Interface JP Display（Head.tsx で CDN から読む）。
+// Web フォントが届くまでの繋ぎとして、欧文 Helvetica → Arial、
+// 和文 游ゴシック → ヒラギノ を後ろに残している。
 * {
   box-sizing: border-box;
 }
 
+body,
+p,
+div,
+span,
+li {
+  font-family:
+    "Gen Interface JP", Helvetica, Arial, "Yu Gothic Medium", YuGothic, "Yu Gothic",
+    "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.page-title,
+.article-title {
+  font-family:
+    "Gen Interface JP Display", Helvetica, Arial, "Yu Gothic Medium", YuGothic, "Yu Gothic",
+    "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif !important;
+}
+
+// 約物のツメは ss09（約物半角）で行う。
+// Gen Interface JP は palt を持たない — palt 相当の調整の 34% は既定メトリクスに
+// 焼き込み済みで、残り 66% がこの ss09 に入っている。
+// 存在しない "palt" を指定すると、この書体ではかえって字幅が広がる。
 body,
 h1,
 h2,
@@ -20,9 +46,27 @@ h6,
 p,
 div,
 span {
-  font-family: 'NHaasGroteskTXPro-55Rg', 'TazuganeGothicStdN-Book', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   text-wrap: wrap !important;
-  font-feature-settings: "palt";
+  font-feature-settings: "ss09";
+}
+
+// 見出しのウェイトを 600 に統一する。
+// Display は 600 だけを読み込んでいるので、700 のままだと合成ボールドになる。
+article h1,
+article h2,
+article h3,
+article h4,
+article h5,
+article h6 {
+  font-weight: 600 !important;
+}
+
+// palt-typesetting が組んだ範囲のスタイル。
+// letter-spacing は入れない。Gen Interface JP は字送りを書体側で
+// 広げてあるので、ここで足すと二重に開く。
+.typesetting-wrapper {
+  // Safari のフォントレンダリング対策（ライブラリ推奨）
+  -webkit-text-stroke: 0.01em transparent;
 }
 
 // Ultra-minimal stephango.com inspired layout
@@ -34,7 +78,7 @@ span {
     padding: 0 1rem;
   }
 
-  &>#quartz-body {
+  & > #quartz-body {
     max-width: 40em;
     margin: 0 auto;
     padding: 0 !important;
